@@ -1,0 +1,315 @@
+/***********************
+【広告】
+***********************/
+
+a[href*='d.amoad.com']{
+    display:none !important;
+}
+#fc2_footer{
+    display:none !important;
+}
+#ad_cloud_overlay_space{
+    display:none !important;
+}
+
+
+/***********************
+【全体】
+***********************/
+
+.ui-content:not(#index *){
+    /*padding:0 1px;	*/
+}
+
+[data-role='footer']{
+	bottom:0 !important;
+}
+
+.wordbreak{
+	overflow:visible;
+	white-space:normal;
+	word-break:break-all;
+	word-wrap:break-word;
+}
+
+
+/***********************
+【#index】
+***********************/
+
+#index .ui-content{
+    padding:0;	
+}
+
+.ui-input-search{
+	margin-left:15px;
+	margin-right:15px;
+}
+
+/*パネル*/
+#panel-popup {
+	right: 0 !important;
+	left: auto !important;
+}
+#panel {
+	width: 200px !important;
+	border: 1px solid #000 !important;
+	border-right: none !important;
+	background: rgba(0,0,0,.5) !important;
+	margin: -1px 0 !important;
+}
+.ui-popup-container {
+	z-index: 1100 !important;
+	/*z-index: 1200 !important;
+	z-index: 1300 !important;*/
+	display: inline-block;
+	position: absolute;
+	padding: 0;
+	outline: 0;
+}
+#panel{
+	color:rgba(255,255,255,0.8);
+	padding:3px !important;
+}
+/*
+#panel-popup h2{
+	font-size:0.8em !important;	
+	margin:1.0em 0;
+}
+*/
+#panel-popup label{
+	/*display:block;*/
+	/*width:100%;
+	max-width:100%;*/
+	font-size:0.8em;	
+	margin:1.0em 0;
+}
+
+#panel-popup label[for='sidepanel-show-panel-no'],
+#panel-popup label[for='sidepanel-color-panel-no'],
+#panel-popup label[for='sidepanel-color-blank-panel']{
+	display:inline-block;
+	width:100px;	
+}
+
+#panel-popup .color-panel-no,
+#panel-popup .color-blank-panel{
+	display:inline-block;
+	width:60px;
+	height: 15px;
+	line-height: 15px;
+	padding-top: 0;
+	padding-bottom: 0;
+	border-radius: 100px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) inset;
+	font-size: 14px;	
+}
+
+#panel-popup label[for='sidepanel-color-panel-no-r'],
+#panel-popup label[for='sidepanel-color-panel-no-g'],
+#panel-popup label[for='sidepanel-color-panel-no-b'],
+#panel-popup label[for='sidepanel-color-blank-panel-r'],
+#panel-popup label[for='sidepanel-color-blank-panel-g'],
+#panel-popup label[for='sidepanel-color-blank-panel-b']{
+	font-size:0.8em;
+	width:20px;
+	display:inline-block;
+	margin:1.0em 0;
+}
+
+#panel-popup .ui-field-contain {
+	display:block;
+	height:45px;
+	line-height:45px;
+	padding: 0;
+	margin: 0;
+	border-width: 0 0 1px 0;
+	border:none;
+	overflow: visible;
+}
+
+#panel-popup label.ui-input-text[for='sidepanel-alpha-panel-no']{
+	width:100%;
+	max-width:100%;		
+}
+
+#panel-popup .ui-slider{
+	top:0;	
+}
+
+#panel-popup .ui-slider.ui-slider-switch{
+	top:8px;	
+}
+
+
+/***********************
+【#setting】
+***********************/
+
+#setting .ui-content h2{
+	font-size:1.2em;	
+}
+
+#setting .ui-content h3{
+	font-size:1.0em;
+}
+
+/*ボタン*/
+#setting .ui-content .ui-btn-up-c > .ui-btn-inner.ui-btn-corner-all,
+#setting .ui-content .ui-btn-hover-c > .ui-btn-inner.ui-btn-corner-all,
+#ranking .ui-content .ui-btn-up-c > .ui-btn-inner.ui-btn-corner-all,
+#ranking .ui-content .ui-btn-hover-c > .ui-btn-inner.ui-btn-corner-all{
+background: rgb(252, 252, 252) !important;
+background: -moz-linear-gradient(top, rgb(252, 252, 252) 0%, rgb(201, 201, 201) 100%) !important;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(252, 252, 252)), color-stop(100%,rgb(201, 201, 201))) !important;
+background: -webkit-linear-gradient(top, rgb(252, 252, 252) 0%,rgb(201, 201, 201) 100%) !important;
+background: -o-linear-gradient(top, rgb(252, 252, 252) 0%,rgb(201, 201, 201) 100%) !important;
+background: -ms-linear-gradient(top, rgb(252, 252, 252) 0%,rgb(201, 201, 201) 100%) !important;
+background: linear-gradient(top, rgb(252, 252, 252) 0%,rgb(201, 201, 201) 100%) !important;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#c9c9c9',GradientType=0 ) !important;
+}
+
+#setting .ui-content .ui-btn-up-c > .ui-btn-inner.ui-btn-corner-all .ui-btn-text,
+#setting .ui-content .ui-btn-hover-c > .ui-btn-inner.ui-btn-corner-all .ui-btn-text,
+#ranking .ui-content .ui-btn-up-c > .ui-btn-inner.ui-btn-corner-all .ui-btn-text,
+#ranking .ui-content .ui-btn-hover-c > .ui-btn-inner.ui-btn-corner-all .ui-btn-text{
+	color: rgb(127, 127, 127);
+	text-shadow: 0 1px 0 white;
+}
+
+#setting .ui-content .ui-btn-down-c > .ui-btn-inner.ui-btn-corner-all,
+#ranking .ui-content .ui-btn-down-c > .ui-btn-inner.ui-btn-corner-all{
+background: rgb(55, 111, 212) !important;
+background: -moz-linear-gradient(top, rgb(55, 111, 212) 0%, rgb(65, 127, 231) 49%, rgb(76, 136, 233) 50%, rgb(115, 168, 251) 100%) !important;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(55, 111, 212)), color-stop(49%,rgb(65, 127, 231)), color-stop(50%,rgb(76, 136, 233)), color-stop(100%,rgb(115, 168, 251))) !important;
+background: -webkit-linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+background: -o-linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+background: -ms-linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+background: linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#376fd4', endColorstr='#73a8fb',GradientType=0 ) !important;
+-webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) inset !important;
+-moz-box-shadow: 0 2px 5px rgba(0,0,0,0.5) inset !important;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) inset !important;
+}
+
+#setting .ui-content .ui-btn-down-c > .ui-btn-inner.ui-btn-corner-all .ui-btn-text,
+#ranking .ui-content .ui-btn-down-c > .ui-btn-inner.ui-btn-corner-all .ui-btn-text{
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+
+/*スライダー*/
+.ui-slider-bg.ui-btn-active.ui-btn-corner-all{
+background: rgb(55, 111, 212) !important;
+background: -moz-linear-gradient(top, rgb(55, 111, 212) 0%, rgb(65, 127, 231) 49%, rgb(76, 136, 233) 50%, rgb(115, 168, 251) 100%) !important;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(55, 111, 212)), color-stop(49%,rgb(65, 127, 231)), color-stop(50%,rgb(76, 136, 233)), color-stop(100%,rgb(115, 168, 251))) !important;
+background: -webkit-linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+background: -o-linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+background: -ms-linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+background: linear-gradient(top, rgb(55, 111, 212) 0%,rgb(65, 127, 231) 49%,rgb(76, 136, 233) 50%,rgb(115, 168, 251) 100%) !important;
+}
+
+
+/***********************
+【ダイアログ】
+***********************/
+
+.ui-dialog-contain{
+	/*position:static;*/
+	max-width:90% !important;
+	width-width:90% !important;
+	border-radius:5px !important;
+	/*opacity:0.5;*/
+	
+}
+
+.ui-dialog .ui-content{
+	position:static;
+	border-radius:5px;
+	
+	font-size:14px;
+	color:rgba(255,255,255,0.6);
+	text-shadow:rgba(255, 255, 255, .4) 0 1px;
+	
+	background: rgba(168, 177, 189, 0.4);
+	background: -moz-linear-gradient(top, rgba(168, 177, 189, 0.4) 0%, rgba(100, 109, 123, 0.4) 15%, rgba(83, 92, 104, 0.4) 16%, rgba(83, 92, 104, 0.4) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(168, 177, 189, 0.4)), color-stop(15%,rgba(100, 109, 123, 0.4)), color-stop(16%,rgba(83, 92, 104, 0.4)), color-stop(100%,rgba(83, 92, 104, 0.4)));
+	background: -webkit-linear-gradient(top, rgba(168, 177, 189, 0.4) 0%,rgba(100, 109, 123, 0.4) 15%,rgba(83, 92, 104, 0.4) 16%,rgba(83, 92, 104, 0.4) 100%);
+	background: -o-linear-gradient(top, rgba(168, 177, 189, 0.4) 0%,rgba(100, 109, 123, 0.4) 15%,rgba(83, 92, 104, 0.4) 16%,rgba(83, 92, 104, 0.4) 100%);
+	background: -ms-linear-gradient(top, rgba(168, 177, 189, 0.4) 0%,rgba(100, 109, 123, 0.4) 15%,rgba(83, 92, 104, 0.4) 16%,rgba(83, 92, 104, 0.4) 100%);
+	background: linear-gradient(top, rgba(168, 177, 189, 0.4) 0%,rgba(100, 109, 123, 0.4) 15%,rgba(83, 92, 104, 0.4) 16%,rgba(83, 92, 104, 0.4) 100%);
+}
+
+.ui-dialog .ui-btn-text{
+	color:rgba(255,255,255,0.6) !important;	
+}
+
+.ui-dialog .ui-btn-up-a .ui-btn-inner, .ui-dialog .ui-btn-hover-a .ui-btn-inner {
+background: rgba(237, 237, 238, 0.4) !important;
+background: -moz-linear-gradient(top, rgba(237, 237, 238, 0.4) 0%, rgba(207, 208, 209, 0.4) 49%, rgba(186, 186, 187, 0.4) 50%, rgba(189, 191, 194, 0.4) 100%) !important;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(237, 237, 238, 0.4)), color-stop(49%,rgba(207, 208, 209, 0.4)), color-stop(50%,rgba(186, 186, 187, 0.4)), color-stop(100%,rgba(189, 191, 194, 0.4))) !important;
+background: -webkit-linear-gradient(top, rgba(237, 237, 238, 0.4) 0%,rgba(207, 208, 209, 0.4) 49%,rgba(186, 186, 187, 0.4) 50%,rgba(189, 191, 194, 0.4) 100%) !important;
+background: -o-linear-gradient(top, rgba(237, 237, 238, 0.4) 0%,rgba(207, 208, 209, 0.4) 49%,rgba(186, 186, 187, 0.4) 50%,rgba(189, 191, 194, 0.4) 100%) !important;
+background: -ms-linear-gradient(top, rgba(237, 237, 238, 0.4) 0%,rgba(207, 208, 209, 0.4) 49%,rgba(186, 186, 187, 0.4) 50%,rgba(189, 191, 194, 0.4) 100%) !important;
+background: linear-gradient(top, rgba(237, 237, 238, 0.4) 0%,rgba(207, 208, 209, 0.4) 49%,rgba(186, 186, 187, 0.4) 50%,rgba(189, 191, 194, 0.4) 100%) !important;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededee', endColorstr='#bdbfc2',GradientType=0 ) !important;
+}
+
+div.ui-btn .ui-btn-inner {
+-webkit-border-radius: 8px !important;
+-moz-border-radius: 8px !important;
+border-radius: 8px !important;
+background: rgba(176, 188, 205, 0.4) !important;
+background: -moz-linear-gradient(top, rgba(176, 188, 205, 0.4) 0%, rgba(136, 155, 179, 0.4) 50%, rgba(128, 148, 174, 0.4) 51%, rgba(109, 132, 162, 0.4) 100%) !important;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(176, 188, 205, 0.4)), color-stop(50%,rgba(136, 155, 179, 0.4)), color-stop(51%,rgba(128, 148, 174, 0.4)), color-stop(100%,rgba(109, 132, 162, 0.4))) !important;
+background: -webkit-linear-gradient(top, rgba(176, 188, 205, 0.4) 0%,rgba(136, 155, 179, 0.4) 50%,rgba(128, 148, 174, 0.4) 51%,rgba(109, 132, 162, 0.4) 100%) !important;
+background: -o-linear-gradient(top, rgba(176, 188, 205, 0.4) 0%,rgba(136, 155, 179, 0.4) 50%,rgba(128, 148, 174, 0.4) 51%,rgba(109, 132, 162, 0.4) 100%) !important;
+background: -ms-linear-gradient(top, rgba(176, 188, 205, 0.4) 0%,rgba(136, 155, 179, 0.4) 50%,rgba(128, 148, 174, 0.4) 51%,rgba(109, 132, 162, 0.4) 100%) !important;
+background: linear-gradient(top, rgba(176, 188, 205, 0.4) 0%,rgba(136, 155, 179, 0.4) 50%,rgba(128, 148, 174, 0.4) 51%,rgba(109, 132, 162, 0.4) 100%) !important;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b0bccd', endColorstr='#6d84a2',GradientType=0 ) !important;
+}
+
+
+
+.ui-dialog .ui-content p{
+	padding-left:5px;
+	padding-right:5px;
+	/*width:90%;
+	max-width:90%;*/
+}
+
+.ui-icon-camera{
+	background-image:url(images/ic-camera.png);
+	/*
+	-moz-background-size:776px 18px;
+	-o-background-size:776px 18px;
+	-webkit-background-size:776px 18px;
+	background-size:776px 18px
+	*/
+	-moz-background-size:18px 18px;
+	-o-background-size:18px 18px;
+	-webkit-background-size:18px 18px;
+	background-size:18px 18px
+}
+
+.ui-icon-camera{
+	/*
+	background-position:-432px 50%
+	*/
+	background-position:0 50%
+}
+
+#title{
+    background-color:blue;
+    color:white;
+    padding:3px;
+    font-size:14px;
+    width:314px;
+    height:14px;	
+}
+
+#search{
+	display:inline;
+	vertical-align:middle;
+}

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=320, height=480, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="icons/favicon/favicon.png" rel="icon" type="image/png">  
+<link href="icons/favicon/favicon.ico" rel="shortcut icon">
+<link rel="apple-touch-icon" href="icons/favicon/apple-touch-icon.png" />
+<link rel="stylesheet" href="jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.css" />
+<link rel="stylesheet" href="ios_inspired/styles.css" />
+<link rel="stylesheet" href="css/custom.css" />
+<script type="text/javascript" src="cordova-2.5.0.js"></script>
+<script src="js/jquery-1.8.2.min.js"></script>
+<!--<script type="text/javascript" src="js/monaca.viewport.js"></script>-->
+<script src="js/init.js"></script>
+<script src="jquery.mobile-1.2.0/jquery.mobile-1.2.0.js"></script>
+<script src="js/main.js"></script>
+<script src="js/gap.js"></script>
+<title>flickr PUZZLE</title>
+</head>
+<body>
+	<div data-role="page" id="index">
+        <div data-role="header" data-position="fixed">
+        <a href="#about" class="ui-btn-left" data-icon="info" data-iconpos="notext" data-transition="none" data-prefetch="true">ゲームの遊び方</a>
+        <a href="#complete" data-rel="popup" data-position-to="window" class="ui-btn-left" data-icon="info" data-iconpos="notext" data-transition="none">完成形</a>
+        <h1>flickr PUZZLE</h1>
+         <a href="#setting" class="ui-btn-right" data-icon="gear" data-iconpos="notext" data-transition="none">設定</a>
+         <a href="#panel" data-rel="popup" data-transition="none" data-position-to="window" class="ui-btn-right" data-icon="gear" data-iconpos="notext">設定</a>
+        </div>
+        <div data-role="content">
+			<canvas id="game_canvas" width="320" height="320"></canvas>
+            <input type="search" id="search" value="" placeholder="キーワードを入力">
+            
+            <!--ライトボックス-->
+            <div data-role="popup" id="complete" data-overlay-theme="a" data-theme="d" data-corners="false">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">閉じる</a>
+                <img class="popphoto" src="title.png" alt="完成形">
+            </div>
+            
+            <!--サイドパネル-->
+            <div data-role="popup" id="panel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0"> 
+                <div data-role="fieldcontain" style="height:45px">
+                <label for="sidepanel-show-panel-no">パネル番号表示</label>
+                <select data-role="slider" id="sidepanel-show-panel-no" class="show-panel-no" data-mini="true">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+                </select>
+                </div>
+                <div data-role="fieldcontain" style="height:80px;">
+                <label for="sidepanel-alpha-panel-no">パネル番号透明度</label>
+				
+                <input id="sidepanel-alpha-panel-no" type="range" class="alpha-panel-no" value="8" min="1" max="10" step="3" data-highlight="true">
+                </div>
+                <div data-role="fieldcontain">
+                <label for="sidepanel-color-panel-no">パネル番号色</label>
+                <input type="text" id="sidepanel-color-panel-no" class="color-panel-no ui-disabled" style="background-color:rgba(255,0,132,1.0);opacity:1.0;">
+                </div>
+                <div data-role="fieldcontain">
+                <label for="sidepanel-color-panel-no-r">赤</label>
+                <input type="range" id="sidepanel-color-panel-no-r" class="color-panel-no-r" value="255" min="0" max="255" step="64" data-highlight="true">
+                </div>
+          		<div data-role="fieldcontain">
+                <label for="sidepanel-color-panel-no-g">緑</label>
+                <input type="range" id="sidepanel-color-panel-no-g" class="color-panel-no-g" value="0" min="0" max="255" step="64" data-highlight="true">
+                </div>
+                <div data-role="fieldcontain">
+                <label for="sidepanel-color-panel-no-b">青</label>
+                <input type="range" id="sidepanel-color-panel-no-b" class="color-panel-no-b" value="132" min="0" max="255" step="64" data-highlight="true">
+                </div>
+                <div data-role="fieldcontain">
+                <label for="sidepanel-color-blank-panel">空白パネル色</label>
+                <input type="text" id="sidepanel-color-blank-panel" class="color-blank-panel ui-disabled" style="background-color:rgba(0,99,220,1.0);opacity:1.0;">
+                </div>
+                <div data-role="fieldcontain">
+                <label for="sidepanel-color-blank-panel-r">赤</label>
+                <input type="range" id="sidepanel-color-blank-panel-r" class="color-blank-panel-r" value="0" min="0" max="255" step="64" data-highlight="true">
+                </div>
+                <div data-role="fieldcontain">
+                <label for="sidepanel-color-blank-panel-g">緑</label>
+                <input type="range" id="sidepanel-color-blank-panel-g" class="color-blank-panel-g" value="99" min="0" max="255" step="64" data-highlight="true">
+                </div>
+                <div data-role="fieldcontain">
+                <label for="sidepanel-color-blank-panel-b">青</label>
+                <input type="range" id="sidepanel-color-blank-panel-b" class="color-blank-panel-b" value="220" min="0" max="255" step="64" data-highlight="true">
+                </div>
+
+            </div>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home ui-btn-active" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+	</div>
+    
+    <div data-role="page" id="clear">
+        <div data-role="header" data-position="fixed">
+     	   <h1>ゲームクリア</h1>
+        </div>
+        <div data-role="content">
+        <h1>ただ今の記録</h1>
+        <h2 id="clear-time">
+        </h2>
+        <h3>お名前</h3>
+        <p>
+        お名前を入力して、お使いの環境の「Enter」キーや「実行」ボタンを押してください。
+        </p>
+        <p>
+        未入力の場合はランキングに反映しません。
+        </p>
+        <div data-role="fieldcontain">
+        <input type="text" id="name" placeholder="お名前を入力">
+        </div>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    </div>
+    
+    <div data-role="page" id="photo">
+        <div data-role="header" data-position="fixed">
+			<h1>選択</h1>
+        </div>
+        <div data-role="content">
+        	<ul data-role="listview" data-inset="true" id="photo-list">
+            </ul>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    
+    </div>
+    
+    <div data-role="page" id="ranking">
+        <div data-role="header" data-position="fixed">
+        <a href="#about" class="ui-btn-left" data-icon="info" data-iconpos="notext" data-transition="none" data-prefetch="true">ゲームの遊び方</a>
+         <a href="#setting" class="ui-btn-right" data-icon="gear" data-iconpos="notext" data-transition="none">設定</a>
+     	   <h1>ランキング</h1>
+        </div>
+        <div data-role="content">
+        	<div data-role="fieldcontain">
+           	<ul data-role="listview" data-inset="true" id="ranking-list">
+            </ul>
+        	<input type="button" id="ranking-clear" value="空にする">
+        	</div>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" class="ui-btn-active" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    </div>
+    
+    <div data-role="page" id="about" data-dom-cache="true" data-prefetch="true">
+        <div data-role="header" data-position="fixed">
+     	   <h1>ゲームの遊び方</h1>
+           <a href="#about2" class="ui-btn-right">次へ</a>
+        </div>
+        <div data-role="content">
+        	<h2>ゲームのルール</h2>
+        	<p>
+            上下左右のパネルが空白（15番）パネルとなっているパネルをタップして、空白（15番）パネルと位置を入れ替えます。
+            最終的に、ゲームをロードした時の完成画像の形になったらクリアとなります。
+            </p>
+            <p>
+            クリアすると、10位までのランキングが記録されます。
+            </p>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    </div>
+    
+    <div data-role="page" id="about2" data-dom-cache="true" data-prefetch="true">
+        <div data-role="header" data-position="fixed">
+       <a href="#" data-rel="back">Back</a>
+     	   <h1>ゲームの遊び方</h1>
+         <a href="#about3" class="ui-btn-right">次へ</a>
+        </div>
+        <div data-role="content">
+            <h2>主な操作方法</h2>
+            <h3>ホームボタン</h3>
+            <p>
+            ゲームの初期画面に戻ります。
+            </p>
+            <h3>カメラボタン</h3>
+            <p>
+            カメラが起動し、撮影した画像をゲームに取り込むことができます。
+            </p>
+            <h3>ファイルボタン</h3>
+            <p>
+            画像ビューワが起動し、以前に撮影した画像をゲームに取り込むことができます。
+            </p>
+            
+            <h3>ランクボタン</h3>
+            <p>
+            以前、プレイしたゲームのタイムを上位10位まで表示します。
+            </p>
+            
+            <h3>終了ボタン</h3>
+            <p>
+            アプリを終了します。
+            </p>
+            
+            <h3>情報ボタン</h3>
+            <p>
+            ゲーム終了中は、ゲームの遊び方画面を表示し、ゲーム中は完成画像を表示します。
+            </p>
+            
+            <h3>設定ボタン</h3>
+            <p>
+            ゲーム終了中は、詳細設定画面を表示し、ゲーム中はサイドパネルから設定を変更できます。
+            ゲーム中の設定変更は負荷がかかるため、あらかじめ設定画面で設定しておくことをお勧めします。
+            </p>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    </div>
+    
+    <div data-role="page" id="about2" data-dom-cache="true" data-prefetch="true">
+        <div data-role="header" data-position="fixed">
+        <a href="#" class="ui-btn-left" data-rel="back">戻る</a>
+     	   <h1>ゲームの遊び方</h1>
+        <a href="#about3" class="ui-btn-right">次へ</a>
+        </div>
+        <div data-role="content">
+			<h2>ボタンの操作</h2>
+            <h3>カメラボタン</h3>
+            <p>
+            カメラが起動し、撮影した画像をゲームに取り込むことができます。
+            </p>
+            <h3>ファイルボタン</h3>
+            <p>
+            画像ビューワが起動し、以前に撮影した画像をゲームに取り込むことができます。
+            </p>
+            
+            <h3>ランクボタン</h3>
+            <p>
+            以前、プレイしたゲームのタイムを上位10位まで表示します。
+            </p>
+            <h3>終了ボタン</h3>
+            <p>
+            アプリを終了します。
+            </p>
+            
+            <h3>情報ボタン</h3>
+            <p>
+            ゲーム終了中は、ゲームの遊び方画面を表示し、ゲーム中は完成画像を表示します。
+            </p>
+            <h3>設定ボタン</h3>
+            <p>
+            ゲーム終了中は、詳細設定画面を表示し、ゲーム中はサイドパネルから設定を変更できます。
+            ゲーム中の設定変更は負荷がかかるため、あらかじめ設定画面で設定しておくことをお勧めします。
+            </p>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    </div>
+    
+    <div data-role="page" id="about3" data-dom-cache="true" data-prefetch="true">
+        <div data-role="header" data-position="fixed">
+        <a href="#" class="ui-btn-left" data-rel="back">戻る</a>
+     	   <h1>ゲームの遊び方</h1>
+        </div>
+        <div data-role="content">
+        	<h2>ホーム画面</h2>
+            <p>
+            ゲームの最初の画面です。情報ボタンをタップすると、ゲームの遊び方を読むことができ、設定ボタンを押すと、ゲームの文字色や空白パネル色を変更できます。
+            </p>
+            <h2>ゲーム画面</h2>
+            <p>
+            ゲームのローディング時間も時間に含まれます。慣れてくると設定画面から完成画像の表示時間を短くしてみましょう。
+            </p>
+            <p>
+            プレイ中、情報ボタンをタップすると、完成画像を確認することができます。また、プレイ中、設定ボタンからリアルタイムに文字色、パネル色を変更できますが、端末によっては負荷がかかるため、ホーム画面の設定ボタンを押して、あらかじめ設定を決めておくことをお勧めします。
+            </p>
+            <h2>設定画面</h2>
+            <p>
+            flickrからの取得画像数、起動時の完成画像の表示時間や、パネル上の数字の表示・非表示、ゲームの文字色や透明度、空白パネル色を変更できます。初期値ボタンをタップすると、アプリのインストール時の設定に戻ります。設定を変更すると、サイド変更するか初期値ボタンを押すまで設定は保持されます。
+            </p>
+            <h2>ランク画面</h2>
+            <p>
+            ゲームのクリア時間のランキングを10位まで記録できます。空にするボタンをタップすると、ランキングの一覧を初期化できます。
+            </p>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    </div>
+    
+    
+    <div data-role="page" id="setting">
+        <div data-role="header" data-position="fixed">
+     	   <h1>設定</h1>
+        </div>
+        <div data-role="content">
+        <div data-role="fieldcontain">
+        	<input type="button" id="set-default" value="初期設定" class="ui-btn-inner">
+        </div>
+		<div data-role="fieldcontain">
+        	 <h2>flickr画像取得件数</h2>
+			<fieldset data-role="controlgroup" data-type="horizontal">  
+                <input type="radio" name="num-image" id="num-image-10" value="10" checked="checked" />
+                <label for="num-image-10">10件</label>
+                <input type="radio" name="num-image" id="num-image-20" value="20"  />
+                <label for="num-image-20">20件</label>
+                <input type="radio" name="num-image" id="num-image-30" value="30"  />
+                <label for="num-image-30">30件</label>
+			</fieldset>
+		</div>
+
+        <div data-role="fieldcontain">
+         <h2>完成画像表示時間</h2>
+        <input type="range" id="time-clear-img" value="" min="0" max="10000" step="100" data-highlight="true"><br>
+        </div>
+        <div data-role="fieldcontain">
+        <h2>パネル番号表示</h2>
+        <!--<select data-role="slider" id="show-panel-no" class="show-panel-no">-->
+        <select data-role="slider" class="show-panel-no">
+        	<option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+        </div>
+        <div data-role="fieldcontain">
+        <h2>パネル番号透明度</h2>
+        <input type="range" class="alpha-panel-no" value="8" min="0" max="10" step="1" data-highlight="true"><br>
+        </div>
+         <div data-role="fieldcontain">
+       		<h2>パネル番号色</h2>
+            <input type="text" class="color-panel-no ui-disabled" style="background-color:rgba(255,0,132,1.0);opacity:1.0;"><br>
+         	<h3>赤</h3>
+       		<input type="range" class="color-panel-no-r" value="255" min="0" max="255" step="1" data-highlight="true"><br>
+            <h3>緑</h3>
+            <input type="range" class="color-panel-no-g" value="0" min="0" max="255" step="1" data-highlight="true"><br>
+            <h3>青</h3>
+            <input type="range" class="color-panel-no-b" value="132" min="0" max="255" step="1" data-highlight="true"><br>
+        </div>
+         <div data-role="fieldcontain">
+       		<h2>空白パネル色</h2>
+            <input type="text" class="color-blank-panel ui-disabled" style="background-color:rgba(0,99,220,1.0);opacity:1.0;"><br>
+            <h3>赤</h3>
+       		<input type="range" class="color-blank-panel-r" value="0" min="0" max="255" step="1" data-highlight="true"><br>
+            <h3>緑</h3>
+            <input type="range" class="color-blank-panel-g" value="99" min="0" max="255" step="1" data-highlight="true"><br>
+            <h3>青</h3>
+            <input type="range" class="color-blank-panel-b" value="220" min="0" max="255" step="1" data-highlight="true"><br>
+          </div>
+          <div><br></div>
+        </div>
+		<div data-role="footer" data-id="footer-id" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#" class="home" data-icon="home">ホーム</a></li>
+                    <li><a href="#" class="camera" data-icon="camera">カメラ</a></li>
+                    <li><a href="#" class="gallery" data-icon="grid">ファイル</a></li>
+                    <li><a href="#ranking" data-icon="star" data-transition="none">ランク</a></li>
+                    <li><a href="#" class="exit" data-icon="delete">終了</a></li>
+                    </ul>
+                </div>
+		</div>
+    </div>
+    
+     <div data-role="page" id="error1" data-dom-cache="true" data-prefetch="true">
+    	
+    	<div data-role="content">
+           <p>
+           flickrに投稿されたデータの中から検索キーワードが見つかりませんでした。
+           </p>
+           <p>
+           別のキーワードで検索してください。
+           </p>
+           <p>
+           <button data-theme="a" class="error1">閉じる</button>
+			</p>
+        </div>
+        
+    </div>
+    
+    <div data-role="page" id="error2" data-dom-cache="true" data-prefetch="true">
+    	
+    	<div data-role="content">
+           <p>
+           キーワードに1文字も入力されていません。
+           </p>
+           <p>
+           別のキーワードを入力して、お使いのキーボードの「Enter」や「実行」などのボタンを押してください。
+           </p>
+           <p>
+           <button data-theme="a" class="error2">閉じる</button>
+			</p>
+        </div>
+        
+    </div>
+    
+    <div data-role="page" id="error3" data-dom-cache="true" data-prefetch="true">
+    	
+    	<div data-role="content">
+           <p>
+           画像が取得できませんでした。
+           </p>
+           <p>
+           「Camera」メニューからカメラで写真を撮るか、
+           「Gallery」メニューか画像を選択してください。
+           </p>
+           <p>
+           <button data-theme="a" class="error3">閉じる</button>
+			</p>
+        </div>
+        
+    </div>
+    
+    <div data-role="page" id="error4" data-dom-cache="true" data-prefetch="true">
+    	
+    	<div data-role="content">
+           <p>
+           お名前に1文字も入力されていません。
+           </p>
+           <p>
+           お名前を入力して、お使いのキーボードの「Enter」や「実行」などのボタンを押してください。
+           </p>
+           <p>
+           <button data-theme="a" class="error4">閉じる</button>
+			</p>
+        </div>
+        
+    </div>
+    
+    <div data-role="page" id="error5" data-dom-cache="true" data-prefetch="true">
+    	
+    	<div data-role="content">
+           <p>
+           ランキングに表示する項目が1つもありません。
+           </p>
+           <p>
+           1度ゲームをクリアしてください。
+           </p>
+           <p>
+           <button data-theme="a" class="error5">閉じる</button>
+			</p>
+        </div>
+        
+    </div>
+    
+     <div data-role="page" id="error6" data-dom-cache="true" data-prefetch="true">
+    	
+    	<div data-role="content">
+           <p>
+           ネットワークに接続されていません。
+           </p>
+           <p>
+           お使いの端末がネットワークに接続されているか確認してください。
+           </p>
+           <p>
+           <button data-theme="a" class="error5">閉じる</button>
+			</p>
+        </div>
+        
+    </div>
+    
+     <div data-role="page" id="error7" data-dom-cache="true" data-prefetch="true">
+    	
+    	<div data-role="content">
+           <p>
+           Web版のゲームには対応していません。
+           </p>
+           <p>
+           アプリ版のゲームをインストールしてください。
+           </p>
+           <p>
+           <button data-theme="a" class="error5">閉じる</button>
+			</p>
+        </div>
+        
+    </div>
+    
+</body>
+</html>
